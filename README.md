@@ -43,6 +43,7 @@ When run through the parser (tbc) this will translate as:
 - `rx` Regular expression. Must be defined as a string in JSON.
 - `exists` Property exists.
 - `type` Type of the property (one of `string`, `number`, `array`, `object`, `date`, `boolean`)
+- `function` A function accessible by the parser. Will be called with `function_name($vals)` where `$v` may be any type of value. `null` returns from the function count as false.
 
 ### Compound conditions
 The above can be nested and sit next to compound conditions, allowing for:
