@@ -40,9 +40,9 @@ When run through the parser (tbc) this will translate as:
 - `lte` Less than or equal
 - `gte` Greater than or equal
 - `contains` String appears at least once.
-- `rx` Regular expression. Must be defined as a string in JSON.
+- `rx` Regular expression. Must be defined as a string in JSON, contained in forward slashes (e.g. `"/\\bword\\b/"` - note the double backslashes).
 - `exists` Property exists.
-- `type` Type of the property (one of `string`, `number`, `array`, `object`, `date`, `boolean`)
+- `type` Type of the property (one of `string`, `number`, `array`, `object`, `date`, `boolean`, `null`)
 - `function` A function accessible by the parser. Will be called with `function_name($vals)` where `$v` may be any type of value. `null` returns from the function count as false.
 
 ### Compound conditions
