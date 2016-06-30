@@ -59,12 +59,12 @@ The following JSON defines a block of lobjical markup:
 ```
 
 When run through the parser (tbc) this will translate as:
-- `my.first.property` must not equal "foo" AND
-- `my.second.property` must contain "bar", "pub" or "restaurant" AND
-- The `items` array must:
-  - Have __all__ items with a `quantity` value less than one OR
-  - Have __one or more__ items with a value >= 5 OR
-- `third` must equal the variable `var_one`, `$var_two` or the string "string" (these variables must be accessible in the scope of the parser - see further on).
+- `enabled` must not equal true AND
+- `details.name` must contain "bloggs", "smith" or "brown" AND
+- The `orders` array must:
+  - Have __all__ items with a `quantity` value <= to 500 OR
+  - Have __one or more__ items with a value >= 0.05 OR
+- `details.contact.zip` must be contained in the passed "zips" array.
 
 ### Available comparisons
 - `eq` Equals. Does not change type (e.g. 1 != "1")
@@ -76,7 +76,6 @@ When run through the parser (tbc) this will translate as:
 - `rx` Regular expression. Must be defined as a string in JSON, contained in forward slashes (e.g. `"/\\bword\\b/"` - note the double backslashes).
 - `exists` Property exists.
 - `type` Type of the property (one of `string`, `number`, `array`, `object`, `date`, `boolean`, `null`)
-- `function` A function passed through to the parser in the "functions" argument. Will be called with `functions[function_name]($vals)` where `$v` may be any type of value. `null` returns from the function count as false.
 
 ### Property modifiers
 - `+` One or more of an array or object.
