@@ -9,32 +9,52 @@ The following JSON defines a block of lobjical markup:
 
 ```
 {
-	"AND": {
-		"NOT": {
-			"eq": {
-				"property": "my.first.property",
-				"value": "foo"
+	"AND": [
+		{
+			"NOT": [
+				{
+					"eq": {
+						"property": "enabled",
+						"value": true
+					}
+				}
+			]
+		},
+		{
+			"contains": {
+				"property": "details.name",
+				"values": ["bloggs", "smith", "brown"]
 			}
 		},
-		"contains": {
-			"property": "my.second.property",
-			"values": ["bar", "pub", "restaurant"]
+		{
+			"gt": {
+				"property": "#orders",
+				"value": 0
+			}
 		},
-        "OR": {
-            "lte" : {
-                "property": "items.*.quantity",
-                "value": 1
-            },
-            "gte" : {
-                "property": "items.+.quantity",
-                "value": 5
-            },
+		{
+			"OR": [
+				{
+					"lte" : {
+						"property": "orders.*.quantity",
+						"value": 500
+					}
+				},
+				{
+					"gte" : {
+						"property": "orders.+.price",
+						"value": 0.05
+					}
+				}
+		   ]
         },
-		"eq": {
-			"property": "third",
-			"values": ["$var_one", "$$var_two", "string"]
+		{
+			"eq": {
+				"property": "details.contact.zip",
+				"values": "$zips"
+			}
 		}
-	}
+	]
 }
 ```
 
@@ -56,14 +76,14 @@ When run through the parser (tbc) this will translate as:
 - `rx` Regular expression. Must be defined as a string in JSON, contained in forward slashes (e.g. `"/\\bword\\b/"` - note the double backslashes).
 - `exists` Property exists.
 - `type` Type of the property (one of `string`, `number`, `array`, `object`, `date`, `boolean`, `null`)
-- `function` A function accessible by the parser. Will be called with `function_name($vals)` where `$v` may be any type of value. `null` returns from the function count as false.
+- `function` A function passed through to the parser in the "functions" argument. Will be called with `functions[function_name]($vals)` where `$v` may be any type of value. `null` returns from the function count as false.
 
 ### Property modifiers
 - `+` One or more of an array or object.
 - `*` All items of an array or object.
 - `#` The count of an array.
 
-### Compound conditions
+### Compound condition sets
 The above can be nested and sit next to compound conditions, allowing for:
 - `AND` All of the child conditions must be met
 - `OR` One of the child conditions must be met
